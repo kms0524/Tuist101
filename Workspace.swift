@@ -10,5 +10,8 @@ import ProjectDescription
 let workspace = Workspace(
     name: "MoyaWithTuist",
     projects: [
-    "Projects/App"
+    "Projects/App",
+    "Projects/FeatureModule",
+    "Projects/ServiceModule",
+    "Projects/ThirdPartyLib"
     ])
