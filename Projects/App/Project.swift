@@ -8,6 +8,8 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
+import Plugin
+
 let project = Project.makeModule(
     name: "MoyaWithTuist",
     platform: .iOS,
