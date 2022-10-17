@@ -157,18 +157,68 @@ let target = Target(name: String,
 - dependencies: 타겟의 의존성을 정의할 수 있다.
 - settings: Build Settings 혹은 .xcconfig 를 이용할 수 있다.
 - coreDataModels: CoreData의 경로를 설정할 수 있다.
-- environment:  
+- environment:  Scheme의 환경변수를 자동으로 생성할 수 있다.
+- launchArguments: Scheme의 Argument를 자동으로 생성할 수 있다.
+- additionalFiles: 프로젝트 생성시 자동으로 생성되지 않는 파일을 등록하여 Xcode에서 볼 수 있다.
 
+# Workspace.swift
+여러 프로젝트를 관리할 Workspace로, 아래와 같은 Initializer가 있다.
 
+``` swift
+let workspace = Workspace(
+    name: String,
+    projects: [Path],
+    schemes: [Scheme],
+    fileHeaderTemplate: FileHeaderTemplate?,
+    additionalFiles: [FileElement],
+    generationOptions: Workspace.GenerationOptions
+)
+```
 
+- name: Workspace의 이름을 설정할 수 있다.
+- projects: Workspace에 들어갈 프로젝트들의 경로를 넣을 수 있다.
+- schemes: build, test, run, archive, profile, analyize scheme을 정의할 수 있다.
+- fileHeaderTemplate: 파일을 생성할때 적혀있는 헤더를 수정할 수 있다.
+- additionalFiles: Workspace 생성시 자동으로 생성되지 않는 파일을 등록하여 Xcode에서 볼 수 있다.
+- generationOptions: Workspace의 세대(generation)를 정의 할 수 있다.
 
+# Example
 
+이전에 진행한 [프로젝트](https://github.com/kms0524/MoyaReactorkit101)를 기반으로 Tuist로 리팩토링하는 예제를 진행하겠다.
 
+## Plan
 
+### Project
+- App: AppDelegate, SceneDelegate가 들어갈 Foundation 모듈
+- FeatureModule: Reactor와 View가 들어갈 모듈
+- ServiceModule: 전반적인 네트워크 서비스가 들어갈 모듈
+- ThirdPartyLib: Dependencies가 들어갈 모듈
 
+### Dependencies 
+RxSwift, RxCocoa, RxRelay, Alamofire, Moya, ReactorKit 들을 SPM으로 사용.
 
+### Target
+실제 타겟과 테스트용 타겟 두개, 다만 테스트는 진행하지 않을것이다.
 
+### Config
+프로젝트 의존성 주입과 SPM 의존성 주입을 플러그인으로 만들어 사용하는 기능만 활용할 것이다.
 
+### Workspace
+4개의 프로젝트를 넣어 Workspace로 만드는 기능만 사용한다.
 
+## Initialize Tuist
+
+먼저, 터미널로 리팩토링할 경로로 이동하고 Tuist를 initialize 한뒤 generate를 하면 아래와 같은 Tuist 구성이 생긴다.
+```bash
+tuist init --platform ios
+
+tuist generate
+```
+
+## Modularization
+Manifest에 있는 Project+Templates 파일을 전면 수정할것이다.
+이 파일은, Tuist가 각 프로젝트를 어떤식으로 만들건지를 작성하는 파일로, 이곳에서 각 프로젝트를 모듈화를 진행할것이다.
+
+Project+Templates 파일을 [이 코드](https://github.com/kms0524/Tuist101/blob/master/Tuist/ProjectDescriptionHelpers/Project%2BTemplates.swift)
 
 
