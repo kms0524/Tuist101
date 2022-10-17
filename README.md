@@ -208,17 +208,78 @@ RxSwift, RxCocoa, RxRelay, Alamofire, Moya, ReactorKit 들을 SPM으로 사용.
 
 ## Initialize Tuist
 
-먼저, 터미널로 리팩토링할 경로로 이동하고 Tuist를 initialize 한뒤 generate를 하면 아래와 같은 Tuist 구성이 생긴다.
+먼저, 터미널로 리팩토링할 경로로 이동하고 Tuist를 initialize 한뒤 edit을 하면 아래와 같은 Tuist 구성을 변경할 수 있다.
 ```bash
 tuist init --platform ios
 
-tuist generate
+tuist edit
 ```
 
 ## Modularization
 Manifest에 있는 Project+Templates 파일을 전면 수정할것이다.
 이 파일은, Tuist가 각 프로젝트를 어떤식으로 만들건지를 작성하는 파일로, 이곳에서 각 프로젝트를 모듈화를 진행할것이다.
 
-Project+Templates 파일을 [이 코드](https://github.com/kms0524/Tuist101/blob/master/Tuist/ProjectDescriptionHelpers/Project%2BTemplates.swift)
+Project+Templates 파일을 [이 코드](https://github.com/kms0524/Tuist101/blob/master/Tuist/ProjectDescriptionHelpers/Project%2BTemplates.swift)와 같이 작성하자.
+
+## Plugin
+각각의 프로젝트의 Project.swift 파일을 작성하기 전, 먼저 프로젝트 의존성 주입과 SPM 의존성 주입을 위해 Plugin을 작성하겠다.
+
+일단, Plugin 타겟에 자동으로 생성된 그룹중 Tuist를 initialize 한 폴더명이 있는 그룹과 안에 있는 모든 파일을 삭제한다.
+
+이후, Plugin 이라는 새로운 그룹을 만들고 아래에 Plugin.swift 파일을 [이 코드](https://github.com/kms0524/Tuist101/blob/master/Plugins/Plugin/Plugin.swift)와 같이 만들어주었다.
+
+이후, Plugin 그룹 아래에 ProjectDescriptionHelpers 이라는 그룹을 만들고 아래에 각 의존성 주입에 필요한 swift 파일을 만들것이다.
+
+그 다음, 프로젝트 의존성 주입을 위한 Dependency+Project 파일을 [이 코드](https://github.com/kms0524/Tuist101/blob/master/Plugins/Plugin/ProjectDescriptionHelpers/Dependency%2BProject.swift)와 같이 만들어주었다.
+
+마지막으로, SPM 의존성 주입을 위한 Dependency+SPM 파일을 [이 코드](https://github.com/kms0524/Tuist101/blob/master/Plugins/Plugin/ProjectDescriptionHelpers/Dependency%2BSPM.swift)와 같이 만들어주었다.
+
+
+## Config
+이제 생성된 플러그인을 로컬에서 불러오게 Config.swift 파일을 [이 코드](https://github.com/kms0524/Tuist101/blob/master/Tuist/Config.swift)와 같이 수정하였다.
+
+## Dependencies
+
+이제 위에서 사용할 라이브러리들을 적용시킬 Dependencies.swift 파일을 만들것이다.
+
+Manifest 타겟에 ProejectDescriptionHelpers 그룹 아래에 Dependencies.swift 파일을 만들고 [이 코드](https://github.com/kms0524/Tuist101/blob/master/Tuist/Dependencies.swift)와 같이 수정해주었다.
+
+## Projects
+
+그 다음, Tuist를 generate 할때 생성될 각 프로젝트들을 구성하겠다.
+Manifests 그룹 아래에 Projects 라는 그룹을 만들고 위에서 계획한 네이밍으로 각각의 그룹을 만들주었다.
+
+이후, 각 그룹 안에 Project.swift 파일을 각각 만들고 각 프로젝트 세팅에 맞게 수정해주었다. 각 코드는 [이곳](https://github.com/kms0524/Tuist101/tree/master/Projects)에서 확인할 수 있다.
+
+이때, 각 프로젝튼 Source 폴더와 Tests 폴더가 필요하므로 각 프로젝트에 Source, Tests 그룹을 만들어줘야 하고, FeatureModule은 추가로 Resource 그룹 또한 만들어줘야한다.
+
+또한, App 프로젝트는 AppDelegate와 SceneDelegate 파일과 info.plist 파일이 필요한데, 모두 기본으로 생성되는 파일을 넣어주면 된다.
+
+## Workspace
+
+마지막으로, 각 프로젝트들을 묶을 Workspace를 만들어주겠다.
+Manifests 그룹 아래에 Workspace.swift 파일을 만들고 [이 코드](https://github.com/kms0524/Tuist101/blob/master/Workspace.swift)와 같이 수정해주었다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
