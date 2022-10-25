@@ -261,6 +261,27 @@ Manifests 그룹 아래에 Projects 라는 그룹을 만들고 위에서 계획�
 Manifests 그룹 아래에 Workspace.swift 파일을 만들고 [이 코드](https://github.com/kms0524/Tuist101/blob/master/Workspace.swift)와 같이 수정해주었다.
 
 
+# Fetch
+모든 작업을 마친 후, 터미널로 돌아가 Ctrl+C 를 눌러 편집을 종료한 후 
+
+```bash
+tuist fetch
+```
+위 명령어를 입력하면, 외부 라이브러리를 받아오는 작업이 실행된다.
+
+
+# Generate
+
+이후 아래 명령어를 입력하여, 프로젝트 파일을 생성하자.
+
+```bash
+tuist generate
+```
+
+
+# Refactoring
+
+이제 이전에 작업했던 프로젝트 소스코드를 가져와 각 모듈의 기능에 맞게 재구성하면 된다. 소스코드를 가져와 적용할때 주의할점으로는 접근제한 여부를 고려해야하며, 각 모듈에 알맞게 배치해야한다.(예를 들면 FeatureModule은 View의 역할을 수행해야하며, ServiceModule은 비즈니스 로직을 처리해야한다.)
 
 
 
