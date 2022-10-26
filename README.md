@@ -283,12 +283,19 @@ tuist generate
 
 이제 이전에 작업했던 프로젝트 소스코드를 가져와 각 모듈의 기능에 맞게 재구성하면 된다. 소스코드를 가져와 적용할때 주의할점으로는 접근제한 여부를 고려해야하며, 각 모듈에 알맞게 배치해야한다.(예를 들면 FeatureModule은 View의 역할을 수행해야하며, ServiceModule은 비즈니스 로직을 처리해야한다.)
 
+리팩토링한 전체 코드 완성본은 레포를 학인하면 된다.
+
+# Cache
+
+빌드시에 라이브러리를 캐시에 올리고 빌드하여 걸리는 시간을 줄일 수 있다.
+
+```bash
+
+tuist cache warm --dependencies-only
+```
 
 
-
-
-
-
+위 명령어를 입력하면 Dependencies.Swift 에 적혀있는 라이브러리를 ~/.tuist/Cache/BuildCache/<target-hash> 위치에 캐시를 저장하게된다.
 
 
 
