@@ -294,8 +294,20 @@ tuist generate
 tuist cache warm --dependencies-only
 ```
 
-
 위 명령어를 입력하면 Dependencies.Swift 에 적혀있는 라이브러리를 ~/.tuist/Cache/BuildCache/<target-hash> 위치에 캐시를 저장하게된다.
+
+# Clean
+Tuist 환경에서 작업하다보면 여러 에러가 발생하는 경우가 많다. 프로젝트 내부의 코드 문제가 아닌, Tuist로 생성된 프로젝트 자체의 문제가 의심된다면(예를 들면 외부 라이브러리를 제대로 인식하지 못한다거나...) 아래 명령어를 입력해서 청소하면 도움이 될것이다.
+
+``` bash
+tuist clean 
+// 혹은
+tuist clean dependencies
+```
+
+자세한 설명은 [여기](https://docs.tuist.io/commands/clean)와 [여기](https://docs.tuist.io/commands/dependencies)에서 참고하면 된다.
+
+
 
 
 
